@@ -2,6 +2,7 @@ public void containerWithTheMostWater () {
 
 
        int [] height = {1,8,6,2,5,4,8,25,7};
+       
         int maxWaterArea = Integer.MIN_VALUE;
         int leftWallPointer = 0;
         int rightWallPointer = height.length-1;
