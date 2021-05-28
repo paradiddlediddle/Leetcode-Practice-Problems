@@ -1,0 +1,28 @@
+public void findMinimumSortedArray () {
+
+
+    int [] nums = {2,3,1};
+
+    int startPoint = 0;
+    int endPoint = nums.length-1;
+    int minimumNumber = 0;
+
+    while (startPoint < endPoint) {
+        int mid = startPoint + (endPoint - startPoint)/2;
+        // if there are only 2 indices left, return the lowest
+        if (endPoint - startPoint == 1) { minimumNumber = Math.min(nums[startPoint], nums[endPoint]); break; }
+        // if the midpoint is lesser than the endPoint, discard the array after the midpoint
+        else if (nums[mid] < nums[endPoint]) { endPoint = mid; }
+        else { startPoint = mid+1; } // if midpoint is greater, consider the elements after midpoint
+    }
+    // if the num.length ==  1, it will skip to this part directly, 
+    // if there are just 3 elements, and if the lowest seems to be on the right [2,3,1]
+    // mid+1 will make startPoint == endPoint 
+    // hence we use startPoint == endPoint instead of nums.length == 1;
+    
+    if (startPoint == endPoint) { minimumNumber = nums[startPoint]; }
+    
+    System.out.println(minimumNumber);
+
+    
+    }
