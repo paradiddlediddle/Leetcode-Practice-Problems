@@ -1,0 +1,36 @@
+ public void searchInRotatedSortedArray () {
+
+        int[] nums = {6, 7, 0, 1, 2, 3, 4, 5};
+        int target = 9;
+        int index =-1;
+
+        int startingPoint = 0;
+        int endingPoint = nums.length - 1;
+
+        while (startingPoint <= endingPoint) {
+
+            int midPointer = startingPoint + ((endingPoint - startingPoint) / 2);
+
+            if (nums[midPointer] == target) { index = midPointer; break; }
+
+            // nums[midPointer] >= nums[startingPoint], the "=" after > is important so that
+            // the program continues to run and break out of the while loop when midpoint and startingPoint/endingPoint is same
+            // if (start/end point == midpoint and the target isn't there on the array, there are no conditions left to subtract or add the left pointer and break the loop
+
+            //check if the left half is sorted
+            else if (nums[midPointer] >= nums[startingPoint]) {
+                // if the number falls within the left sorted array
+                if (target >= nums[startingPoint] && target < nums[midPointer]) { endingPoint = midPointer - 1; }
+                // if the target doesn't fall under the left sorted array check the other half.
+                else { startingPoint = midPointer + 1; }
+
+            }
+            //check if the right half is sorted
+            else if (nums[startingPoint] >= nums[midPointer]) {
+                // if the target falls within the range of the right sorted array
+                if (target > nums[midPointer] && target <= nums[endingPoint]) { startingPoint = midPointer + 1; }
+                else { endingPoint = midPointer - 1; }
+            }
+        }
+        System.out.println(index);
+    }
