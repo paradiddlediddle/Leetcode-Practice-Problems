@@ -1,0 +1,36 @@
+public void numberSystemWithIntegers (int[] integers, int decimalPlacesLimit){
+        ArrayList<String> possibleNumbersList = new ArrayList<>();
+        boolean stopCondition = false;
+        Arrays.sort(integers);
+
+        // Add single digit integer values in the list
+        for (int i=0; i < integers.length; i++) {
+            possibleNumbersList.add(String.valueOf(integers[i]));
+        }
+
+        int currentDecimalCount = 1;
+        while (currentDecimalCount < decimalPlacesLimit ) {
+            possibleNumbersList = addNextDecimalPlaceNumbersToList(possibleNumbersList, integers);
+            String highestValueSoFar = possibleNumbersList.get(possibleNumbersList.size() - 1);
+            currentDecimalCount = highestValueSoFar.length();
+        }
+        System.out.println(possibleNumbersList);
+    }
+
+    private ArrayList<String> addNextDecimalPlaceNumbersToList(ArrayList<String> possibleNumbersList, int[] integers){
+
+        int highestDecimalCount = possibleNumbersList.get(possibleNumbersList.size() - 1).length();
+        int integersAddedInPreviousIteration = (int) Math.pow(integers.length, highestDecimalCount);
+        int startingIndex = possibleNumbersList.size() - integersAddedInPreviousIteration;
+        int endingIndex = possibleNumbersList.size() - 1;
+
+        int listIndex = startingIndex;
+        for (int i= startingIndex; i<= endingIndex; i++ ){
+            for (int integer : integers) {
+                String value = possibleNumbersList.get(listIndex) + integer;
+                possibleNumbersList.add(value);
+            }
+            listIndex++;
+        }
+        return possibleNumbersList;
+    }
